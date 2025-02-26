@@ -4,6 +4,8 @@ print("""Welcome to the Number Guessing Game!
 I'm thinking of a number between 1 and 100.
 You have 5 chances to guess the correct number.""")
 
+
+
 difficulty = input("""Please select the difficulty level:
 1. Easy (10 chances)
 2. Medium (5 chances)
@@ -11,26 +13,27 @@ difficulty = input("""Please select the difficulty level:
 
 Enter your choice: """)
 
-def game(level):
-    if level == '1':
-        computer_number = random.randint(1,100)
-        max_guess = 10
-        guesses = 0
-        print('''You have selected the easy difficulty!
-        Lets get started!''')
-        while guesses <= max_guess:
-            guess = int(input('Enter your guess: '))
-            if guess == computer_number:
-                print('You got it!', computer_number)
-                break
+def play_game(max_guesses, difficulty_name):
+    computer_number = random.randint(1, 100)
+    print(f'''You have selected the difficulty level: {difficulty_name}
+Lets Begin the game''')
 
-            elif guess < computer_number:
-                print(f'Incorrect!The number is greater than {guess}.')
-                guesses += 1
-            elif guess > computer_number:
-                print(f'Incorrect!The number is less than {guess}.')
-                guesses += 1
+    for i in range(max_guesses):
+        guess = int(input('Enter your guess: '))
+        if guess == computer_number:
+            print('You guessed the correct number!')
+            break
+        elif guess < computer_number:
+            print('Your guess is too low!')
+        elif guess > computer_number:
+            print('Your guess is too high!')
+    else: print("Sorry, you couldn't guess the right number!, the answer was " + str(computer_number))
 
 
-
-game(difficulty)
+if difficulty == '1':
+    play_game(10, difficulty)
+elif difficulty == '2':
+    play_game(5, difficulty)
+elif difficulty == '3':
+    play_game(3, difficulty)
+else: print("Invalid choice, please choose a valid option!")
